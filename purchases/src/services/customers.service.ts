@@ -7,7 +7,7 @@ interface CreateCostumerDTO {
 }
 
 @Injectable()
-export class CostumersService {
+export class CustomersService {
   constructor(private prisma: PrismaService) { }
 
   async getCostumerByAuthUserId(authUserId: string) {

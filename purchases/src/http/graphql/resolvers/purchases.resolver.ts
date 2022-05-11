@@ -8,7 +8,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 
-import { CostumersService } from '../../../services/costumers.service';
+import { CustomersService } from '../../../services/customers.service';
 import { ProductsService } from '../../../services/products.service';
 import { PurchasesService } from '../../../services/purchases.service';
 import { AuthorizationGuard } from '../../auth/authorization.guard';
@@ -20,7 +20,7 @@ import { Purchase } from '../models/purchase';
 @Resolver(() => Purchase)
 export class PurchasesResolver {
   constructor(
-    private costumersService: CostumersService,
+    private customersService: CustomersService,
     private purchasesService: PurchasesService,
     private productsService: ProductsService,
   ) { }
@@ -41,12 +41,12 @@ export class PurchasesResolver {
     @Args('data') data: CreatePurchaseInput,
     @CurrentUser() user: AuthUser,
   ) {
-    const customer = await this.costumersService.getCostumerByAuthUserId(
+    const customer = await this.customersService.getCostumerByAuthUserId(
       user.sub,
     );
 
     if (!customer) {
-      this.costumersService.createCostumer({ authUserId: user.sub });
+      this.customersService.createCostumer({ authUserId: user.sub });
     }
 
     return this.purchasesService.createPurchase({
