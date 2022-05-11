@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../database/prisma/prisma.service';
 
-interface CreateProductDTO {
+interface CreateProductParams {
   title: string;
 }
 
@@ -24,7 +24,7 @@ export class ProductsService {
     });
   }
 
-  async createProduct({ title }: CreateProductDTO) {
+  async createProduct({ title }: CreateProductParams) {
     const slug = slugify(title, { lower: true });
 
     const hasProductWithSameSlug = await this.prisma.product.findUnique({

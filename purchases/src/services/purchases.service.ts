@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../database/prisma/prisma.service';
 
-interface CreatePurchaseDTO {
+interface CreatePurchaseParams {
   costumerId: string;
   productId: string;
 }
@@ -30,7 +30,7 @@ export class PurchasesService {
     });
   }
 
-  async createPurchase({ costumerId, productId }: CreatePurchaseDTO) {
+  async createPurchase({ costumerId, productId }: CreatePurchaseParams) {
     const product = await this.prisma.product.findUnique({
       where: {
         id: productId,
