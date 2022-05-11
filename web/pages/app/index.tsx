@@ -1,5 +1,8 @@
-import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import React from "react";
+
 import { GetServerSideProps, NextPage } from "next";
+
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const Home: NextPage = () => {
   const { user } = useUser();
@@ -15,7 +18,7 @@ const Home: NextPage = () => {
       <a href="/api/auth/logout">Logout</a>
     </div>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = withPageAuthRequired();
 
