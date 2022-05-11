@@ -6,7 +6,7 @@ import { AuthorizationGuard } from '../../auth/authorization.guard';
 import { CreateProductInput } from '../inputs/createProductInput';
 import { Product } from '../models/product';
 
-@Resolver()
+@Resolver(() => Product)
 export class ProductsResolver {
   constructor(private productsService: ProductsService) { }
 
@@ -16,7 +16,7 @@ export class ProductsResolver {
   }
 
   @Mutation(() => Product)
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   async createProduct(@Args('data') data: CreateProductInput) {
     return this.productsService.createProduct(data);
   }
