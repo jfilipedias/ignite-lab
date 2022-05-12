@@ -2,7 +2,11 @@ import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
 
-import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import {
+  getAccessToken,
+  useUser,
+  withPageAuthRequired,
+} from "@auth0/nextjs-auth0";
 
 const Home: NextPage = () => {
   const { user } = useUser();
@@ -20,6 +24,14 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = withPageAuthRequired();
+export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
+  getServerSideProps: async ({ req, res }) => {
+    console.log(getAccessToken(req, res));
+
+    return {
+      props: {},
+    };
+  },
+});
 
 export default Home;
