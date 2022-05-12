@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Costumer {
+model Customer {
   id String @id @default(uuid())
 
   authUserId String? @unique
@@ -44,8 +44,8 @@ model Purchase {
 
   status PurchaseStatus @default(PENDING)
 
-  costumer   Costumer @relation(fields: [costumerId], references: [id])
-  costumerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
 
   product   Product @relation(fields: [productId], references: [id])
   productId String

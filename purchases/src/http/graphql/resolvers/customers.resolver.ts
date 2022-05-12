@@ -18,7 +18,7 @@ export class CustomerResolver {
   @Query(() => Customer)
   @UseGuards(AuthorizationGuard)
   async me(@CurrentUser() user: AuthUser) {
-    return this.customersService.getCostumerByAuthUserId(user.sub);
+    return this.customersService.getCustomerByAuthUserId(user.sub);
   }
 
   @ResolveField(() => Purchase)
