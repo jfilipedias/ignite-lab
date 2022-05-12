@@ -22,8 +22,7 @@ export class AuthorizationGuard implements CanActivate {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const { request, response } =
-      GqlExecutionContext.create(context).getContext();
+    const { req, res } = GqlExecutionContext.create(context).getContext();
 
     const checkJWT = promisify(
       jwt({
@@ -31,18 +30,19 @@ export class AuthorizationGuard implements CanActivate {
           cache: true,
           rateLimit: true,
           jwksRequestsPerMinute: 5,
-          jwksUri: `https://${this.AUTH0_DOMAIN}/.well-known/jwks.json`,
+          jwksUri: `${this.AUTH0_DOMAIN}.well-known/jwks.json`,
         }),
         audience: this.AUTH0_AUDIENCE,
-        issuer: `https://${this.AUTH0_DOMAIN}/`,
+        issuer: this.AUTH0_DOMAIN,
         algorithms: ['RS256'],
       }),
     );
 
     try {
-      await checkJWT(request, response);
+      await checkJWT(req, res);
       return true;
     } catch (err) {
+      console.log(err);
       throw new UnauthorizedException(err);
     }
   }
