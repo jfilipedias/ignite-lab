@@ -15,7 +15,7 @@ import { Customer } from '../models/customer';
 import { Purchase } from '../models/purchase';
 
 @Resolver(() => Customer)
-export class CustomerResolver {
+export class CustomersResolver {
   constructor(
     private customersService: CustomersService,
     private purchasesService: PurchasesService,
