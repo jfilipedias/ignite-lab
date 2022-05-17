@@ -2,20 +2,16 @@ import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
 
-import { gql, useQuery } from "@apollo/client";
-import {
-  getAccessToken,
-  useUser,
-  withPageAuthRequired,
-} from "@auth0/nextjs-auth0";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-import { useGetProductsQuery } from "../../graphql/generated/graphql";
+import {
+  getServerPageGetProducts,
+  ssrGetProducts,
+} from "../../graphql/generated/page";
 import { withApollo } from "../../lib/withApollo";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ data }: any) => {
   const { user } = useUser();
-  const { data } = useGetProductsQuery();
-
   return (
     <div>
       <h1>Hello World</h1>
@@ -34,13 +30,11 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }) => {
-    console.log(getAccessToken(req, res));
-
+  getServerSideProps: async (ctx) => {
     return {
       props: {},
     };
   },
 });
 
-export default withApollo(Home);
+export default withApollo(ssrGetProducts.withPage()(Home));
