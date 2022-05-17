@@ -9,20 +9,12 @@ import {
   withPageAuthRequired,
 } from "@auth0/nextjs-auth0";
 
+import { useGetProductsQuery } from "../../graphql/generated/graphql";
 import { withApollo } from "../../lib/withApollo";
-
-const PRODUCT_QUERY = gql`
-  query GetProducts {
-    products {
-      id
-      title
-    }
-  }
-`;
 
 const Home: NextPage = () => {
   const { user } = useUser();
-  const { data } = useQuery(PRODUCT_QUERY);
+  const { data } = useGetProductsQuery();
 
   return (
     <div>

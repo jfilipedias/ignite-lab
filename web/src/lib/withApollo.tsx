@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 
 import {
   ApolloClient,
@@ -11,7 +11,11 @@ import {
   NormalizedCacheObject,
 } from "@apollo/client";
 
-function getApolloClient(ssrCache?: NormalizedCacheObject): ApolloClient<any> {
+export type ApolloClientContext = GetServerSidePropsContext;
+
+export function getApolloClient(
+  ssrCache?: NormalizedCacheObject
+): ApolloClient<any> {
   const httpLink = new HttpLink({
     uri: "http://localhost:3001/graphql",
     fetch,
