@@ -4,10 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 
 import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-import {
-  getServerPageGetProducts,
-  ssrGetProducts,
-} from "../../graphql/generated/page";
+import { ssrGetProducts } from "../../graphql/generated/page";
 import { withApollo } from "../../lib/withApollo";
 
 const Home: NextPage = ({ data }: any) => {
