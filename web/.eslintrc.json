@@ -84,7 +84,8 @@
         "react/jsx-props-no-spreading": "off",
         "react/prop-types": "off",
         "react/require-default-props": "off",
-        "space-before-function-paren": "off"
+        "space-before-function-paren": "off",
+        "jsx-a11y/anchor-is-valid": "off"
     },
     "settings": {
         "import/resolver": {
